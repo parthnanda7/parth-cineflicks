@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Movie Recommendation By Parth</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Auto Complete -->
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/css/autoComplete.min.css">
+
+  <!-- External CSS -->
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}">
+
+  <script type="text/javascript">
+    var films = { suggestions| tojson};
+    $(document).ready(function () {
+      $("#myModal").modal('show');
+    });
+  </script>
+
+</head>
+
+<body id="content" style="font-family: 'Noto Sans JP', sans-serif; background-color: #090a2b;">
+
+  <div class="title_card_wrapper" style="justify-content: center;">
+    <style>
+      .title_card {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 25px;
+        margin: 18px 10px 30px 10px;
+        width: 550px;
+        box-shadow: 0 0 30px red;
+        border-radius: 8px;
+        font-size: 20px;
+        text-align: center;
+        transition: 0.3s;
+        width: revert;
+      }
+
+      .title_logo {
+        width: 15%;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .title_card {
+          font-size: 16px;
+          margin-top: 52px;
+          width: 95%;
+          height: 123px;
+        }
+
+        .title_logo {
+          width: 22%;
+        }
+      }
+    </style>
+
+    <div class="title_card">
+
+      <img class="title_logo" src="https://th.bing.com/th/id/OIP.5iCTr07a-z28c_UOqWllyQHaIF?pid=ImgDet&rs=1"
+        alt="logo" />
+      <h1 class="title" style="color: #fff;margin: auto;
+      padding: 7px;
+      font-size: 2em;">Cineflicks</h1>
+      <img class="title_logo" src="https://th.bing.com/th/id/OIP.5iCTr07a-z28c_UOqWllyQHaIF?pid=ImgDet&rs=1"
+        alt="logo" />
+    </div>
+    <div class="body-content">
+      <div class="ml-container" style="display: block;">
+        <a href="https://github.com/parthnanda7" target="_blank" class="github-corner" title="View source on GitHub">
+          <svg data-toggle="tooltip" data-placement="left" width="80" height="80" viewBox="0 0 250 250"
+            style="fill:blue; color:white; position: fixed;z-index:100; top: 0; border: 0; right: 0;"
+            aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+            <path
+              d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+            <path
+              d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+          </svg>
+        </a>
+        <center>
+          <h1 class="app-title">Movies Recommend By Parth</h1>
+        </center>
+        <div class="form-group shadow-textarea" style="margin-top: 30px;text-align: center;color: white;">
+          <input type="text" name="movie" class="movie form-control" id="autoComplete" autocomplete="off"
+            placeholder="Search For Movie"
+            style="background-color: #ffffff;border-color:#ffffff;width: 70%;color: #181818; height: 53px;"
+            required="required" />
+          <br>
+        </div>
+
+        <div class="form-group" style="text-align: center;">
+          <button class="btn btn-primary btn-block movie-button" style="background-color: red;text-align: center;border-color: black;  width: 150px;
+      height: 52px;" disabled="true">Enter</button><br><br>
+        </div>
+      </div>
+
+      <div id="loader" class="text-center">
+      </div>
+
+      <div class="fail">
+        <center>
+          <h3>Sorry! The movie you requested is not in our system.
+            Please check the spelling or try with other movies! Thank you. </h3>
+        </center>
+      </div>
+
+      <div class="results">
+        <center>
+          <h2 id="name" class="text-uppercase"></h2>
+        </center>
+      </div>
+
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel3"
+        aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+          <div class="modal-content">
+            <div class="modal-header" style="background-color: black;color: white;">
+              <h5 class="modal-title" id="exampleModalLabel3">Hey there! Parth Here. </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true" style="color: white">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Don't worry if the movie that you are looking for is not auto-suggested while typing. Just type the
+                movie name and click on "enter". You will be good to go even though if you made some typo errors.</p>
+            </div>
+            <div class="modal-footer" style="text-align: center;">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Let's go!</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="pt-2 text-muted" style="color: #e4e0e0;
+	text-align:right;
+	position:relative;
+ 	bottom: 60px;
+ 	right: 45px;
+ 	width: 100%;">
+        <a style="color: white;">Made By</a>
+        <a class="sp" style="color: red;" href="https://parthnanda7.github.io/Portfolio_2.0/"><span> Parth Nanda </span></a>
+        <a style="color: white;">with</a> </i> <i class="fas fa-heart" style="color: red;"></i> <a
+          style="color: white;">And</a> <i class="fas fa-mug-hot" style="color: antiquewhite;"></i>
+
+
+
+      </p>
+
+
+      <!-- <footer class="footer" style="position: inherit;">
+    <br/> 
+    
+    
+    <div class="social" style="margin-bottom: 8px; ">
+    <a class="social-icons" href="https://www.facebook.com/parth.nanda.37" target="_blank"><i class="fab fa-facebook" style="font-size:24px;color: #e4e0e0"></i></a>
+    <a class="social-icons" href="http://linkedin.com/in/parth-nanda-890545200" target="_blank"><i class="fa fa-linkedin-square" style="font-size:24px;color: #e4e0e0"></i></a>
+    <a class="social-icons" href="https://instagram.com/parth____99?" target="_blank"><i class="fa fa-instagram" style="font-size:24px;color: #e4e0e0"></i></a>
+    <a class="social-icons" href="https://youtube.com/channel/UCsfYekEZiZkoTZze0grRCPg" target="_blank"><i class="fab fa-youtube" style="font-size:24px;color: #e4e0e0"></i></a>
+    <a class="social-icons" href="https://twitter.com/parthnanda3" target="_blank"><i class="fa fa-twitter" style="font-size:24px;color: #e4e0e0"></i></a>
+  </div>
+  </footer> -->
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@7.2.0/dist/js/autoComplete.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='autocomplete.js')}}"></script>
+
+    <script type="text/javascript" src="{{url_for('static', filename='recommend.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+
+</body>
+<center>
+  <h1 class="title about_title" style="color: #fff;">About Creator</h1>
+  <br />
+</center>
+<div class="aboutme_container">
+  <style>
+    .about_title {
+      font-size: 40px;
+    }
+
+    .about_name {
+      font-family: "Dancing Script", cursive;
+      font-size: 36px;
+      text-align: center;
+    }
+
+    .aboutme_container {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+    }
+
+    .aboutme_card {
+      display: flex;
+      max-width: 800px;
+      margin: 10px 10px 20px 10px;
+      box-shadow: 0 0 6px whitesmoke;
+      border: 2px solid black;
+      border-radius: 5px;
+      transition-duration: 0.4s;
+    }
+
+    .aboutme_card:hover {
+      box-shadow: 0 0 10px blue;
+    }
+
+    .aboutme_card__image {
+      width: 35%;
+    }
+
+    .aboutme_card__content {
+      padding: 25px 15px 15px 15px;
+      text-align: justify;
+      font-family: "Bodoni Moda", serif;
+    }
+
+    .aboutme_card__sociallinks {
+      display: flex;
+      margin-top: 20px;
+      transition-delay: 0.4s;
+    }
+
+    .social_icon_linkedin {
+      font-size: 25px;
+      margin-right: 10px;
+      margin-top: 5px;
+      background-color: rgb(0, 0, 0, 0.9);
+      color: #0077b5;
+      padding: 10px;
+      padding-right: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out !important;
+    }
+
+    .social_icon_github {
+      font-size: 25px;
+      margin-top: 5px;
+      margin-left: 10px;
+      background-color: rgb(0, 0, 0, 0.9);
+      color: #6cc644;
+      padding: 10px;
+      padding-left: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out !important;
+    }
+
+    .social_icon_linkedin:hover {
+      background-color: #fff;
+      border-radius: 50%;
+    }
+
+    .social_icon_github:hover {
+      background-color: #fff;
+      border-radius: 50%;
+      color: green;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .aboutme_card {
+        flex-direction: column;
+      }
+
+      .aboutme_card__image {
+        width: 100%;
+      }
+
+      .aboutme_card__content {
+        text-align: center;
+      }
+
+      .aboutme_card__sociallinks {
+        justify-content: center;
+      }
+    }
+  </style>
+  <div class="aboutme_card">
+    <img class="aboutme_card__image" src="/static/IMG_0971.JPG" alt="Venu Gopal Kadamba" />
+    <div class="aboutme_card__content">
+      <h1 class="about_name" style="color:#271be7">Parth Nanda</h1>
+      <div class="stroke" style="
+          background-Color: white;
+          height: 1px;
+          width: 100%;
+          margin-Top: 4px;"></div>
+      <br />
+      <p style="color: #fff; font-size: 1.2rem;">
+        Hello, I am Parth. I Am passionate learner who's always willing to learn and apply technologies across various
+        domains. i love to explore new technologies and leverage them to solve real-life problems.
+      </p>
+
+
+      <div class="aboutme_card__sociallinks">
+        <div>
+          <a class="social-icons" href="https://www.facebook.com/parth.nanda.37" target="_blank"><i
+              class="fab fa-facebook" style="font-size:24px;color: #e4e0e0"></i></a>
+
+          <a class="social-icons" href="http://linkedin.com/in/parth-nanda-890545200" target="_blank"><i
+              class="fa fa-linkedin-square" style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://instagram.com/parth____99?" target="_blank"><i class="fa fa-instagram"
+              style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://youtube.com/channel/UCsfYekEZiZkoTZze0grRCPg" target="_blank"><i
+              class="fab fa-youtube" style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://twitter.com/parthnanda3" target="_blank"><i class="fa fa-twitter"
+              style="font-size:24px;color: #e4e0e0"></i></a>
+          <a class="social-icons" href="https://parthnanda7.github.io/Portfolio_2.0/" target="_blank"><i class="fa fa-globe"
+              style="font-size:24px;color: #e4e0e0"></i></a>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</html>
